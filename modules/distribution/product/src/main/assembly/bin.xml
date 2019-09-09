@@ -905,6 +905,13 @@
                 <include>**/rxt.xsd</include>
             </includes>
         </fileSet>
+
+        <!-- Copying the in-place update tools-->
+        <fileSet>
+            <directory>../resources/updates/in-place/</directory>
+            <outputDirectory>wso2am-${pom.version}/bin</outputDirectory>
+            <fileMode>744</fileMode>
+        </fileSet>
     </fileSets>
 
     <dependencySets>
@@ -1537,6 +1544,11 @@
             <outputDirectory>wso2am-${pom.version}/repository/components/tools/forget-me/conf/</outputDirectory>
             <destName>config.json</destName>
             <fileMode>744</fileMode>
+        </file>
+        <!--Add trust store-->
+        <file>
+            <source>src/main/resources/client-truststore.jks</source>
+            <outputDirectory>wso2am-${pom.version}/repository/resources/security/</outputDirectory>
         </file>
     </files>
 
