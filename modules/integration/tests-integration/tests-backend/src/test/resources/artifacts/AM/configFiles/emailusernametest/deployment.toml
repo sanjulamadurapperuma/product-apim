@@ -4,6 +4,7 @@ node_ip = "127.0.0.1"
 #offset=0
 mode = "single" #single or ha
 base_path = "${carbon.protocol}://${carbon.host}:${carbon.management.port}"
+server_role = "default"
 
 [super_admin]
 username = "admin"
@@ -122,7 +123,7 @@ https_endpoint = "https://localhost:${https.nio.port}"
 #enable_token_encryption = false
 #enable_token_hashing = false
 
-#[apim.store]
+#[apim.devportal]
 #url = "https://localhost:${mgt.transport.https.port}/store"
 #enable_application_sharing = false
 #if application_sharing_type, application_sharing_impl both defined priority goes to application_sharing_impl
