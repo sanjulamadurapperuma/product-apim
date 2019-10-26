@@ -496,13 +496,18 @@
             <includes>
                 <include>authenticationendpoint/</include>
             </includes>
+            <excludes>
+                <!--Need to remove after GA-->
+                <exclude>authenticationendpoint/basicauth.jsp</exclude>
+                <exclude>authenticationendpoint/includes/</exclude>
+            </excludes>
         </fileSet>
 
         <fileSet>
             <directory>
                 src/main/extensions
             </directory>
-            <outputDirectory>${pom.artifactId}-${pom.version}/repository/deployment/server/webapps/authenticationendpoint/extensions
+            <outputDirectory>${pom.artifactId}-${pom.version}/repository/deployment/server/webapps/authenticationendpoint/includes
             </outputDirectory>
             <includes>
                 <include>title.jsp</include>
@@ -510,6 +515,18 @@
                 <include>footer.jsp</include>
                 <include>cookie-policy-content.jsp</include>
                 <include>privacy-policy-content.jsp</include>
+            </includes>
+        </fileSet>
+
+        <!--Need to remove after GA-->
+        <fileSet>
+            <directory>
+                src/main/extensions/
+            </directory>
+            <outputDirectory>${pom.artifactId}-${pom.version}/repository/deployment/server/webapps/authenticationendpoint/
+            </outputDirectory>
+            <includes>
+                <include>basicauth.jsp</include>
             </includes>
         </fileSet>
 
@@ -522,18 +539,37 @@
             <includes>
                 <include>accountrecoveryendpoint/</include>
             </includes>
+            <!--Need to remove after GA-->
+            <excludes>
+                <exclude>accountrecoveryendpoint/self-registration-complete.jsp</exclude>
+                <exclude>accountrecoveryendpoint/password-recovery.jsp</exclude>
+                <exclude>accountrecoveryendpoint/includes/</exclude>
+            </excludes>
         </fileSet>
 
         <fileSet>
             <directory>
                 src/main/extensions
             </directory>
-            <outputDirectory>${pom.artifactId}-${pom.version}/repository/deployment/server/webapps/accountrecoveryendpoint/extensions
+            <outputDirectory>${pom.artifactId}-${pom.version}/repository/deployment/server/webapps/accountrecoveryendpoint/includes
             </outputDirectory>
             <includes>
                 <include>title.jsp</include>
                 <include>header.jsp</include>
                 <include>footer.jsp</include>
+            </includes>
+        </fileSet>
+
+        <!--Need to remove after GA-->
+        <fileSet>
+            <directory>
+                src/main/extensions/
+            </directory>
+            <outputDirectory>${pom.artifactId}-${pom.version}/repository/deployment/server/webapps/accountrecoveryendpoint/
+            </outputDirectory>
+            <includes>
+                <include>self-registration-complete.jsp</include>
+                <include>password-recovery.jsp</include>
             </includes>
         </fileSet>
 
@@ -1061,9 +1097,20 @@
             <destName>thrift-authentication.xml</destName>
         </file>
         <file>
-            <source>src/main/conf/email-admin-config.xml</source>
+            <source>src/main/conf/email-admin-config.xml
+            </source>
             <outputDirectory>wso2am-${pom.version}/repository/conf/email</outputDirectory>
             <destName>email-admin-config.xml</destName>
+        </file>
+        <file>
+            <source>../../p2-profile/product/target/wso2carbon-core-${carbon.kernel.version}/repository/deployment/server/eventpublishers/EmailPublisher.xml</source>
+            <outputDirectory>wso2am-${pom.version}/repository/deployment/server/eventpublishers</outputDirectory>
+            <destName>EmailPublisher.xml</destName>
+        </file>
+        <file>
+            <source>../../p2-profile/product/target/wso2carbon-core-${carbon.kernel.version}/repository/deployment/server/eventstreams/id_gov_notify_stream_1.0.0.json</source>
+            <outputDirectory>wso2am-${pom.version}/repository/deployment/server/eventstreams</outputDirectory>
+            <destName>id_gov_notify_stream_1.0.0.json</destName>
         </file>
         <file>
             <source>src/main/conf/log4j2.properties</source>

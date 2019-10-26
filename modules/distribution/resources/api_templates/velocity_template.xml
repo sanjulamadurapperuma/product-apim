@@ -53,7 +53,7 @@
     <target type="property" property="MessageBody"/>
 </enrich>
 
-<call>
+<call blocking="true">
     <endpoint key="$ep_key"/>
 </call>
 
@@ -239,8 +239,7 @@ $out_sequences.get("$resource.getUriTemplate()").get($uri)
 #end
 ## check and set enable schema validation
 #if($enableSchemaValidation)
-<handler class="org.wso2.carbon.apimgt.gateway.handlers.security.SchemaValidator">
-</handler>
+<handler class="org.wso2.carbon.apimgt.gateway.handlers.security.SchemaValidator"/>
 #end
 </handlers>
         #end

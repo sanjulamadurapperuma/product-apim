@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.wso2.am</groupId>
         <artifactId>am-distribution-parent</artifactId>
-        <version>3.0.0-SNAPSHOT</version>
+        <version>3.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -283,6 +283,7 @@
                                         <include name="accountrecoveryendpoint.war" />
                                     </fileset>
                                 </unzip>
+                                <replace file="${basedir}/../../p2-profile/product/target/wso2carbon-core-${carbon.kernel.version}/repository/deployment/server/webapps/accountrecoveryendpoint/WEB-INF/web.xml" token="&lt;param-value&gt;true&lt;/param-value&gt;" value="&lt;param-value&gt;false&lt;/param-value&gt;" />
                                 <delete file="${basedir}/../../p2-profile/product/target/wso2carbon-core-${carbon.kernel.version}/repository/deployment/server/webapps/accountrecoveryendpoint.war" />
                             </tasks>
                         </configuration>
@@ -413,6 +414,18 @@
                     <goals>
                         <goal>run</goal>
                     </goals>
+                    </execution>
+                    <execution>
+                        <id>modify-identity-j2</id>
+                        <phase>prepare-package</phase>
+                        <configuration>
+                            <tasks>
+                                <replace file="${basedir}/../../p2-profile/product/target/wso2carbon-core-${carbon.kernel.version}/repository/resources/conf/templates/repository/conf/identity/identity.xml.j2" token="&lt;GrantTypeName&gt;iwa:ntlm&lt;/GrantTypeName&gt;" value="&lt;GrantTypeName&gt;iwa:ntlm&lt;/GrantTypeName&gt;&lt;GrantTypeValidatorImplClass&gt;{{oauth.grant_type.iwa_ntlm.grant_validator}}&lt;/GrantTypeValidatorImplClass&gt;" />
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
                     </execution>
                     <execution>
                         <id>move-rest-api-util-jar</id>
@@ -807,6 +820,9 @@
                                         <param>
                                             ${basedir}/../../p2-profile/product/target/wso2carbon-core-${carbon.kernel.version}/repository/resources/conf/org.wso2.carbon.identity.xacml.server.feature.default.json
                                         </param>
+                                        <param>
+                                            ${basedir}/../p2-profile-gen/target/wso2carbon-core-${carbon.kernel.version}/repository/resources/conf/org.wso2.carbon.identity.captcha.server.feature.default.json
+                                        </param>
                                     </include>
                                     <target>
                                         ${basedir}/../../p2-profile/product/target/wso2carbon-core-${carbon.kernel.version}/repository/resources/conf/default.json
@@ -837,6 +853,9 @@
                                         </param>
                                         <param>
                                             ${basedir}/../../p2-profile/product/target/wso2carbon-core-${carbon.kernel.version}/repository/resources/conf/org.wso2.carbon.identity.core.server.feature.validator.json
+                                        </param>
+                                        <param>
+                                            ${basedir}/../p2-profile-gen/target/wso2carbon-core-${carbon.kernel.version}/repository/resources/conf/org.wso2.carbon.identity.captcha.server.feature.validator.json
                                         </param>
                                     </include>
                                     <target>

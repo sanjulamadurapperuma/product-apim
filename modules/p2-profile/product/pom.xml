@@ -20,7 +20,7 @@
     <parent>
         <groupId>org.wso2.am</groupId>
         <artifactId>am-p2-profile-gen-parent</artifactId>
-        <version>3.0.0-SNAPSHOT</version>
+        <version>3.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -103,7 +103,16 @@
                                     org.wso2.carbon.identity.governance:org.wso2.carbon.identity.captcha.server.feature:${carbon.identity.governance.version}
                                 </featureArtifactDef>
                                 <featureArtifactDef>
+                                    org.wso2.carbon.identity.governance:org.wso2.carbon.identity.password.policy.server.feature:${carbon.identity.governance.version}
+                                </featureArtifactDef>
+                                <featureArtifactDef>
                                     org.wso2.carbon.identity.event.handler.accountlock:org.wso2.carbon.identity.handler.event.account.lock.feature:${carbon.identity.event.handler.account.lock.version}
+                                </featureArtifactDef>
+                                <featureArtifactDef>
+                                    org.wso2.carbon.identity.event.handler.notification:org.wso2.carbon.event.handler.notification.server.feature:${carbon.identity.event.handler.notification.version}
+                                </featureArtifactDef>
+                                <featureArtifactDef>
+                                    org.wso2.carbon.identity.event.handler.notification:org.wso2.carbon.email.mgt.feature:${carbon.identity.event.handler.notification.version}
                                 </featureArtifactDef>
                                 <featureArtifactDef>
                                     org.wso2.carbon.identity.framework:org.wso2.carbon.identity.mgt.server.feature:${carbon.identity.version}
@@ -760,7 +769,10 @@
                                     <id>org.wso2.carbon.identity.notification.mgt.feature.group</id>
                                     <version>${carbon.identity.version}</version>
                                 </feature>
-
+                                <feature>
+                                    <id>org.wso2.carbon.identity.password.policy.server.feature.group</id>
+                                    <version>${carbon.identity.governance.version}</version>
+                                </feature>
                                 <feature>
                                     <id>org.wso2.carbon.identity.xacml.server.feature.group</id>
                                     <version>${carbon.identity.version}</version>
@@ -788,6 +800,14 @@
                                 <feature>
                                     <id>org.wso2.carbon.identity.captcha.server.feature.group</id>
                                     <version>${carbon.identity.governance.version}</version>
+                                </feature>
+                                <feature>
+                                    <id>org.wso2.carbon.event.handler.notification.server.feature.group</id>
+                                    <version>${carbon.identity.event.handler.notification.version}</version>
+                                </feature>
+                                <feature>
+                                    <id>org.wso2.carbon.email.mgt.feature.group</id>
+                                    <version>${carbon.identity.event.handler.notification.version}</version>
                                 </feature>
                                 <feature>
                                     <id>org.wso2.carbon.identity.mgt.server.feature.group</id>
@@ -1648,6 +1668,10 @@
                                     <id>org.wso2.carbon.apimgt.hostobjects.oidc.feature.group</id>
                                     <version>${carbon.apimgt.version}</version>
                                 </feature>
+                                <feature>
+                                    <id>org.wso2.carbon.apimgt.tracing.feature.group</id>
+                                    <version>${carbon.apimgt.version}</version>
+                                </feature>
 				                <feature>
                                     <id>org.wso2.carbon.webapp.mgt.server.feature.group</id>
                                     <version>${carbon.deployment.version}</version>
@@ -1743,7 +1767,10 @@
                                     <id>org.wso2.carbon.identity.notification.mgt.feature.group</id>
                                     <version>${carbon.identity.version}</version>
                                 </feature>
-
+                                <feature>
+                                    <id>org.wso2.carbon.identity.password.policy.server.feature.group</id>
+                                    <version>${carbon.identity.governance.version}</version>
+                                </feature>
                                 <feature>
                                     <id>org.wso2.carbon.identity.xacml.server.feature.group</id>
                                     <version>${carbon.identity.version}</version>
@@ -1779,6 +1806,14 @@
                                 <feature>
                                     <id>org.wso2.carbon.identity.captcha.server.feature.group</id>
                                     <version>${carbon.identity.governance.version}</version>
+                                </feature>
+                                <feature>
+                                    <id>org.wso2.carbon.event.handler.notification.server.feature.group</id>
+                                    <version>${carbon.identity.event.handler.notification.version}</version>
+                                </feature>
+                                <feature>
+                                    <id>org.wso2.carbon.email.mgt.feature.group</id>
+                                    <version>${carbon.identity.event.handler.notification.version}</version>
                                 </feature>
                                 <feature>
                                     <id>org.wso2.carbon.identity.mgt.server.feature.group</id>
@@ -2252,6 +2287,10 @@
                                 <feature>
                                     <id>org.wso2.carbon.identity.notification.mgt.feature.group</id>
                                     <version>${carbon.identity.version}</version>
+                                </feature>
+                                <feature>
+                                    <id>org.wso2.carbon.identity.password.policy.server.feature.group</id>
+                                    <version>${carbon.identity.governance.version}</version>
                                 </feature>
                                 <feature>
                                     <id>org.wso2.carbon.identity.xacml.server.feature.group</id>
@@ -3023,6 +3062,10 @@
                                 </feature>
                                 <feature>
                                     <id>org.wso2.carbon.apimgt.rest.api.dcr.feature.group</id>
+                                    <version>${carbon.apimgt.version}</version>
+                                </feature>
+                                <feature>
+                                    <id>org.wso2.carbon.apimgt.tracing.feature.group</id>
                                     <version>${carbon.apimgt.version}</version>
                                 </feature>
 				                <feature>
