@@ -368,6 +368,9 @@ paths:
           description: |
             OK.
             SDK generated successfully.
+          schema:
+            type: string
+            format: byte
         400:
           description: |
             Bad Request.
