@@ -25,31 +25,8 @@ import org.testng.Assert;
 import org.wso2.am.integration.clients.publisher.api.ApiClient;
 import org.wso2.am.integration.clients.publisher.api.ApiException;
 import org.wso2.am.integration.clients.publisher.api.ApiResponse;
-import org.wso2.am.integration.clients.publisher.api.v1.ApIsApi;
-import org.wso2.am.integration.clients.publisher.api.v1.ApiDocumentsApi;
-import org.wso2.am.integration.clients.publisher.api.v1.ApiLifecycleApi;
-import org.wso2.am.integration.clients.publisher.api.v1.ClientCertificatesApi;
-import org.wso2.am.integration.clients.publisher.api.v1.EndpointCertificatesApi;
-import org.wso2.am.integration.clients.publisher.api.v1.RolesApi;
-import org.wso2.am.integration.clients.publisher.api.v1.SubscriptionsApi;
-import org.wso2.am.integration.clients.publisher.api.v1.ThrottlingPoliciesApi;
-import org.wso2.am.integration.clients.publisher.api.v1.ValidationApi;
-import org.wso2.am.integration.clients.publisher.api.v1.dto.APIBusinessInformationDTO;
-import org.wso2.am.integration.clients.publisher.api.v1.dto.APICorsConfigurationDTO;
-import org.wso2.am.integration.clients.publisher.api.v1.dto.APIDTO;
-import org.wso2.am.integration.clients.publisher.api.v1.dto.APIEndpointSecurityDTO;
-import org.wso2.am.integration.clients.publisher.api.v1.dto.APIListDTO;
-import org.wso2.am.integration.clients.publisher.api.v1.dto.APIOperationsDTO;
-import org.wso2.am.integration.clients.publisher.api.v1.dto.CertMetadataDTO;
-import org.wso2.am.integration.clients.publisher.api.v1.dto.ClientCertMetadataDTO;
-import org.wso2.am.integration.clients.publisher.api.v1.dto.DocumentDTO;
-import org.wso2.am.integration.clients.publisher.api.v1.dto.DocumentListDTO;
-import org.wso2.am.integration.clients.publisher.api.v1.dto.LifecycleHistoryDTO;
-import org.wso2.am.integration.clients.publisher.api.v1.dto.LifecycleStateDTO;
-import org.wso2.am.integration.clients.publisher.api.v1.dto.OpenAPIDefinitionValidationResponseDTO;
-import org.wso2.am.integration.clients.publisher.api.v1.dto.SubscriptionListDTO;
-import org.wso2.am.integration.clients.publisher.api.v1.dto.ThrottlingPolicyListDTO;
-import org.wso2.am.integration.clients.publisher.api.v1.dto.WorkflowResponseDTO;
+import org.wso2.am.integration.clients.publisher.api.v1.*;
+import org.wso2.am.integration.clients.publisher.api.v1.dto.*;
 import org.wso2.am.integration.test.Constants;
 import org.wso2.am.integration.test.utils.APIManagerIntegrationTestException;
 import org.wso2.am.integration.test.utils.bean.APICreationRequestBean;
@@ -79,6 +56,7 @@ public class RestAPIPublisherImpl {
     public RolesApi rolesApi = new RolesApi();
     public ValidationApi validationApi = new ValidationApi();
     public SubscriptionsApi subscriptionsApi = new SubscriptionsApi();
+    public ApiAuditApi apiAuditApi = new ApiAuditApi();
 
     public ApiClient apiPublisherClient = new ApiClient();
     public static final String appName = "Integration_Test_App_Publisher";
@@ -120,6 +98,7 @@ public class RestAPIPublisherImpl {
         validationApi.setApiClient(apiPublisherClient);
         clientCertificatesApi.setApiClient(apiPublisherClient);
         subscriptionsApi.setApiClient(apiPublisherClient);
+        apiAuditApi.setApiClient(apiPublisherClient);
         this.tenantDomain = tenantDomain;
     }
 
@@ -954,5 +933,15 @@ public class RestAPIPublisherImpl {
                 subscriptionsApi.subscriptionsGetWithHttpInfo(apiID, 10, 0, null, null);
         Assert.assertEquals(apiResponse.getStatusCode(), HttpStatus.SC_OK);
         return apiResponse.getData();
+    }
+
+    public HttpResponse getAuditApi(String apiId) throws ApiException {
+        HttpResponse response = null;
+        ApiResponse<AuditReportDTO> auditReportResponse = apiAuditApi
+                .apisApiIdAuditapiGetWithHttpInfo(apiId, "applicaton/json");
+        if (auditReportResponse.getStatusCode() == 200) {
+            response = new HttpResponse("Successfully audited the API", 200);
+        }
+        return response;
     }
 }
