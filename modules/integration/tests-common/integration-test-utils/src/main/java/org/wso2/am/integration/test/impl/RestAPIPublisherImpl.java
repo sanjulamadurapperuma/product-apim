@@ -938,7 +938,7 @@ public class RestAPIPublisherImpl {
     public HttpResponse getAuditApi(String apiId) throws ApiException {
         HttpResponse response = null;
         ApiResponse<AuditReportDTO> auditReportResponse = apiAuditApi
-                .apisApiIdAuditapiGetWithHttpInfo(apiId, "applicaton/json");
+                .apisApiIdAuditapiGetWithHttpInfo(apiId, "application/json");
         if (auditReportResponse.getStatusCode() == 200) {
             response = new HttpResponse("Successfully audited the API", 200);
         }
