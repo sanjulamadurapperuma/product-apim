@@ -1,24 +1,46 @@
-package org.wso2.am.integration.tests.restapi.testcases;
+/*
+ *   Copyright (c) 2019, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ *   WSO2 Inc. licenses this file to you under the Apache License,
+ *   Version 2.0 (the "License"); you may not use this file except
+ *   in compliance with the License.
+ *   You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ *
+ */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.testng.Assert;
-import org.testng.annotations.*;
+package org.wso2.am.integration.tests.other;
+
+import org.testng.annotations.Factory;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+import org.testng.annotations.AfterClass;
+import org.wso2.am.integration.test.utils.APIManagerIntegrationTestException;
 import org.wso2.am.integration.test.utils.base.APIMIntegrationConstants;
-import org.wso2.am.integration.test.utils.bean.*;
+import org.wso2.am.integration.test.utils.bean.APIRequest;
 import org.wso2.am.integration.tests.api.lifecycle.APIManagerLifecycleBaseTest;
 import org.wso2.carbon.automation.engine.context.TestUserMode;
 import org.wso2.carbon.automation.test.utils.http.client.HttpResponse;
 import org.wso2.carbon.integration.common.utils.mgt.ServerConfigurationManager;
 
-import javax.ws.rs.core.Response;
 import java.io.File;
 import java.net.URL;
 
-public class APISecurityAuditTestCase extends APIManagerLifecycleBaseTest {
-    private static final Log log = LogFactory.getLog(APISecurityAuditTestCase.class);
-    private ServerConfigurationManager serverConfigurationManager;
+import static org.testng.Assert.assertEquals;
+import static org.testng.AssertJUnit.assertNotNull;
 
+public class APISecurityAuditTestCase extends APIManagerLifecycleBaseTest {
+
+    private ServerConfigurationManager serverConfigurationManager;
     private String apiId;
 
     @Factory(dataProvider = "userModeDataProvider")
@@ -29,47 +51,56 @@ public class APISecurityAuditTestCase extends APIManagerLifecycleBaseTest {
     @DataProvider
     public static Object[][] userModeDataProvider() {
         return new Object[][]{
-                new Object[]{TestUserMode.SUPER_TENANT_ADMIN}
+                new Object[]{TestUserMode.SUPER_TENANT_ADMIN},
+                new Object[]{TestUserMode.TENANT_ADMIN}
         };
     }
+
     @BeforeClass(alwaysRun = true)
     public void setEnvironment() throws Exception {
         super.init(userMode);
-        serverConfigurationManager = new ServerConfigurationManager(gatewayContextWrk);
-        serverConfigurationManager.applyConfiguration(new File(
-                getAMResourceLocation() + File.separator + "configFiles" + File.separator + "apiSecurityAudit"
-                        + File.separator + "deployment.toml"));
+        String apiManagerXml =
+                getAMResourceLocation() + File.separator + "configFiles" + File.separator + "apiSecurityAudit" +
+                        File.separator + "deployment.toml";
+        configureServer(apiManagerXml);
     }
 
-    @Test(groups = "wso2.am", description = "Check the functionality of API Security Audit feature")
-    public void testAuditAPIGet() throws Exception {
-//        String apiName = "AuditAPI";
-//        String apiVersion = "1.0.0";
-//        String apiContext = "audit";
-//        String providerName = "admin";
-//        String endpointUrl = "http://testurl";
-//
-//        APIRequest apiRequest = new APIRequest(apiName, apiContext, new URL(endpointUrl));
-//        apiRequest.setVersion(apiVersion);
-//        apiRequest.setProvider(providerName);
-//        apiRequest.setTiersCollection(APIMIntegrationConstants.API_TIER.UNLIMITED);
-//        apiRequest.setTier(APIMIntegrationConstants.API_TIER.UNLIMITED);
-//
-//        apiId = createAndPublishAPIUsingRest(apiRequest, restAPIPublisher, false);
+    @Test(groups = {"wso2.am"}, description = "get security audit report for api")
+    public void testGetAuditAPI() throws Exception {
+        String apiName = "AuditAPI";
+        String apiContext = "testAuditAPI";
+        String apiVersion = "1.0";
+        String url = getGatewayURLNhttp() + "response";
+        String description = "This is a test API created by API manager integration test for API Security Audit";
 
-        // Add api
-//        HttpResponse serviceResponse = restAPIPublisher.addAPI(apiRequest);
-//        apiId = serviceResponse.getData();
-//        HttpResponse response = restAPIPublisher.getAuditApi(apiId);
-//
-//        Assert.assertEquals(response.getResponseCode(), Response.Status.OK.getStatusCode(),
-//                "The response code is not 200 OK");
+        APIRequest apiRequest = new APIRequest(apiName, apiContext, new URL(url));
+        apiRequest.setDescription(description);
+        apiRequest.setVersion(apiVersion);
+        apiRequest.setProvider(user.getUserName());
+
+        //Create and Publish API
+        apiId = createAndPublishAPIUsingRest(apiRequest, restAPIPublisher, false);
+        waitForAPIDeploymentSync(user.getUserName(), apiName, apiVersion, APIMIntegrationConstants.IS_API_EXISTS);
+
+        //Get Security Audit Report Response
+        HttpResponse auditReportResponse = restAPIPublisher.getAuditApi(apiId);
+        assertNotNull(auditReportResponse);
+        assertEquals(auditReportResponse.getResponseCode(), 200);
+    }
+
+    private void configureServer(String apiManagerXml) throws Exception {
+        try {
+            serverConfigurationManager = new ServerConfigurationManager(publisherContext);
+            serverConfigurationManager.applyConfiguration(new File(apiManagerXml));
+        } catch (Exception e) {
+            throw new APIManagerIntegrationTestException("Error while changing server configuration", e);
+        }
     }
 
     @AfterClass(alwaysRun = true)
     public void destroy() throws Exception {
-        if (TestUserMode.SUPER_TENANT_ADMIN == userMode) {
-            serverConfigurationManager.restoreToLastConfiguration();
-        }
+        serverConfigurationManager.restoreToLastConfiguration();
+        restAPIPublisher.deleteAPI(apiId);
+        super.cleanUp();
     }
 }
