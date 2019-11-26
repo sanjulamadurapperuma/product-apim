@@ -25,8 +25,34 @@ import org.testng.Assert;
 import org.wso2.am.integration.clients.publisher.api.ApiClient;
 import org.wso2.am.integration.clients.publisher.api.ApiException;
 import org.wso2.am.integration.clients.publisher.api.ApiResponse;
-import org.wso2.am.integration.clients.publisher.api.v1.*;
-import org.wso2.am.integration.clients.publisher.api.v1.dto.*;
+import org.wso2.am.integration.clients.publisher.api.v1.ApIsApi;
+import org.wso2.am.integration.clients.publisher.api.v1.ApiDocumentsApi;
+import org.wso2.am.integration.clients.publisher.api.v1.ApiLifecycleApi;
+import org.wso2.am.integration.clients.publisher.api.v1.ClientCertificatesApi;
+import org.wso2.am.integration.clients.publisher.api.v1.EndpointCertificatesApi;
+import org.wso2.am.integration.clients.publisher.api.v1.RolesApi;
+import org.wso2.am.integration.clients.publisher.api.v1.SubscriptionsApi;
+import org.wso2.am.integration.clients.publisher.api.v1.ThrottlingPoliciesApi;
+import org.wso2.am.integration.clients.publisher.api.v1.ValidationApi;
+import org.wso2.am.integration.clients.publisher.api.v1.ApiAuditApi;
+import org.wso2.am.integration.clients.publisher.api.v1.dto.AuditReportDTO;
+import org.wso2.am.integration.clients.publisher.api.v1.dto.APIBusinessInformationDTO;
+import org.wso2.am.integration.clients.publisher.api.v1.dto.APICorsConfigurationDTO;
+import org.wso2.am.integration.clients.publisher.api.v1.dto.APIDTO;
+import org.wso2.am.integration.clients.publisher.api.v1.dto.APIEndpointSecurityDTO;
+import org.wso2.am.integration.clients.publisher.api.v1.dto.APIListDTO;
+import org.wso2.am.integration.clients.publisher.api.v1.dto.APIOperationsDTO;
+import org.wso2.am.integration.clients.publisher.api.v1.dto.ApiEndpointValidationResponseDTO;
+import org.wso2.am.integration.clients.publisher.api.v1.dto.CertMetadataDTO;
+import org.wso2.am.integration.clients.publisher.api.v1.dto.ClientCertMetadataDTO;
+import org.wso2.am.integration.clients.publisher.api.v1.dto.DocumentDTO;
+import org.wso2.am.integration.clients.publisher.api.v1.dto.DocumentListDTO;
+import org.wso2.am.integration.clients.publisher.api.v1.dto.LifecycleHistoryDTO;
+import org.wso2.am.integration.clients.publisher.api.v1.dto.LifecycleStateDTO;
+import org.wso2.am.integration.clients.publisher.api.v1.dto.OpenAPIDefinitionValidationResponseDTO;
+import org.wso2.am.integration.clients.publisher.api.v1.dto.SubscriptionListDTO;
+import org.wso2.am.integration.clients.publisher.api.v1.dto.ThrottlingPolicyListDTO;
+import org.wso2.am.integration.clients.publisher.api.v1.dto.WorkflowResponseDTO;
 import org.wso2.am.integration.test.Constants;
 import org.wso2.am.integration.test.utils.APIManagerIntegrationTestException;
 import org.wso2.am.integration.test.utils.bean.APICreationRequestBean;
@@ -560,13 +586,18 @@ public class RestAPIPublisherImpl {
      * Check whether the Endpoint is valid
      *
      * @param endpointUrl url of the endpoint
-     * @param type        type of Endpoint
+     * @param apiId id of the api which the endpoint to be validated
      * @return HttpResponse -  Response of the getAPI request
      * @throws APIManagerIntegrationTestException - Check for valid endpoint fails.
      */
-    public HttpResponse checkValidEndpoint(String type, String endpointUrl, String providerName, String apiName,
-                                           String apiVersion) throws APIManagerIntegrationTestException {
-        return null;
+    public HttpResponse checkValidEndpoint(String endpointUrl, String apiId) throws APIManagerIntegrationTestException, ApiException {
+
+        ApiEndpointValidationResponseDTO validationResponseDTO = validationApi.validateEndpoint(endpointUrl, endpointUrl);
+        HttpResponse response = null;
+        if (validationResponseDTO.getStatusCode() == 200) {
+            response = new HttpResponse(validationResponseDTO.getStatusMessage(), 200);
+        }
+        return response;
     }
 
 
@@ -701,22 +732,15 @@ public class RestAPIPublisherImpl {
      * @throws APIManagerIntegrationTestException - Exception throws from checkAuthentication() method and
      *                                            HTTPSClientUtils.doGet() method call
      */
-    public APIListDTO getAllAPIs(String tenantDomain) throws APIManagerIntegrationTestException, ApiException {
-
-        APIListDTO apis = apIsApi.apisGet(null, null, null, null, null, null, null, tenantDomain);
-        if (apis.getCount() > 0) {
-            return apis;
-        }
-        return null;
-    }
-
     public APIListDTO getAllAPIs() throws APIManagerIntegrationTestException, ApiException {
-        APIListDTO apis = apIsApi.apisGet(null, null, this.tenantDomain, null, null, null, null, this.tenantDomain);
+
+        APIListDTO apis = apIsApi.apisGet(null, null, null, null, null, null, null);
         if (apis.getCount() > 0) {
             return apis;
         }
         return null;
     }
+
 
     /**
      * This method is used to upload endpoint certificates
@@ -728,7 +752,7 @@ public class RestAPIPublisherImpl {
      */
     public APIListDTO getAPIs(int offset, int limit) throws ApiException {
         ApiResponse<APIListDTO> apiResponse = apIsApi.apisGetWithHttpInfo(limit, offset, this.tenantDomain, null,
-                null, false, null, this.tenantDomain);
+                null, false, null);
         Assert.assertEquals(HttpStatus.SC_OK, apiResponse.getStatusCode());
         return apiResponse.getData();
     }
@@ -795,7 +819,7 @@ public class RestAPIPublisherImpl {
     }
 
     public String updateSwagger(String apiId, String definition) throws ApiException {
-        ApiResponse<String> apiResponse = apIsApi.apisApiIdSwaggerPutWithHttpInfo(apiId, definition, null);
+        ApiResponse<String> apiResponse = apIsApi.apisApiIdSwaggerPutWithHttpInfo(apiId, definition, null, null, null);
         Assert.assertEquals(HttpStatus.SC_OK, apiResponse.getStatusCode());
         return apiResponse.getData();
     }
@@ -877,7 +901,8 @@ public class RestAPIPublisherImpl {
             }
         }
         body.setPolicies(tierList);
-        if ("secured".equalsIgnoreCase(apiCreationRequestBean.getEndpointType())) {
+        if (APIEndpointSecurityDTO.TypeEnum.BASIC.getValue()
+                .equalsIgnoreCase(apiCreationRequestBean.getEndpointType())) {
             APIEndpointSecurityDTO dto = new APIEndpointSecurityDTO();
             dto.setUsername(apiCreationRequestBean.getEpUsername());
             dto.setPassword(apiCreationRequestBean.getEpPassword());
@@ -894,7 +919,6 @@ public class RestAPIPublisherImpl {
      *
      * @param certificate certificate
      * @param alias       alis
-     * @param endpoint    endpoint.
      * @return
      * @throws ApiException if an error occurred while uploading the certificate.
      */
