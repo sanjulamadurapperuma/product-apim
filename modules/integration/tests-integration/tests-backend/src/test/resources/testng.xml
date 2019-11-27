@@ -88,7 +88,7 @@
             <class name="org.wso2.am.integration.tests.header.CustomHeaderTestCase"/>
             <!--<class name="org.wso2.am.integration.tests.header.DuplicateHeaderTestCase"/>-->
             <class name="org.wso2.am.integration.tests.token.InvalidTokenTestCase"/>
-            <!--<class name="org.wso2.am.integration.tests.throttling.APIThrottlingTestCase"/>-->
+            <class name="org.wso2.am.integration.tests.throttling.APIThrottlingTestCase"/>
         </classes>
     </test>
 
@@ -164,8 +164,9 @@
             <class name="org.wso2.am.integration.tests.publisher.APIM627AddDocumentationToAnAPIWithDocTypeOtherThroughPublisherRestAPITestCase"/>
             <class name="org.wso2.am.integration.tests.publisher.APIM634GetAllTheThrottlingTiersFromThePublisherRestAPITestCase"/>
             <class name="org.wso2.am.integration.tests.other.APISecurityAuditTestCase"/>
-            <!--<class name="org.wso2.am.integration.tests.publisher.APIM638ValidateTheRoleOfAnExistingUserThroughThePublisherRestAPITestCase"/>-->
-            <!--<class name="org.wso2.am.integration.tests.publisher.APIM614AddDocumentationToAnAPIWithDocTypeSampleAndSDKThroughPublisherRestAPITestCase"/>-->
+
+            <class name="org.wso2.am.integration.tests.publisher.APIM638ValidateTheRoleOfAnExistingUserThroughThePublisherRestAPITestCase"/>
+            <class name="org.wso2.am.integration.tests.publisher.APIM614AddDocumentationToAnAPIWithDocTypeSampleAndSDKThroughPublisherRestAPITestCase"/>
             <class name="org.wso2.am.integration.tests.publisher.APIResourceWithTemplateTestCase"/>
             <!--<class name="org.wso2.am.integration.tests.rest.DocAPIParameterTamperingTest"/>-->
             <class name="org.wso2.am.integration.tests.other.PublisherAccessControlTestCase"/>
