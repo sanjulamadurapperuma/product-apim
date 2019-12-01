@@ -27,6 +27,7 @@
             <class name="org.wso2.am.integration.tests.other.AdvancedWebAppDeploymentConfig"/>
             <class name="org.wso2.am.integration.tests.api.lifecycle.AddEditRemoveRESTResourceTestCase"/>
             <class name="org.wso2.am.integration.tests.api.lifecycle.PluggableVersioningStrategyTestCase"/>
+            <class name="org.wso2.am.integration.tests.jwt.MicroGWJWTRevocationTestCase"/>
             <class name="org.wso2.am.integration.tests.jwt.JWTRevocationTestCase"/>
             <class name="org.wso2.am.integration.tests.oas.OASTestCase"/>
         </classes>
@@ -37,6 +38,12 @@
         <classes>
             <class name="org.wso2.am.integration.tests.other.AdvancedWebAppDeploymentConfig"/>
             <class name="org.wso2.am.integration.tests.api.lifecycle.ChangeAPIEndPointURLTestCase"/>
+        </classes>
+    </test>
+    
+    <test name="apim-integration-tests-api-product" preserve-order="true" parallel="none" group-by-instances="true">
+        <classes>
+            <class name="org.wso2.am.integration.tests.apiproduct.APIProductCreationTestCase"/>
         </classes>
     </test>
 
@@ -151,7 +158,7 @@
             <class name="org.wso2.am.integration.tests.publisher.APIM18CreateAnAPIThroughThePublisherRestAPITestCase"/>
             <class name="org.wso2.am.integration.tests.publisher.APIMANAGER5834APICreationWithInvalidInputsTestCase"/>
             <!--Disable the test case due to APIMANAGER-4039-->
-            <!--<class name="org.wso2.am.integration.tests.publisher.APIM514CreateAnAPIWithoutProvidingMandatoryFieldsTestCase"/>-->
+            <class name="org.wso2.am.integration.tests.publisher.APIM514CreateAnAPIWithoutProvidingMandatoryFieldsTestCase"/>
             <class name="org.wso2.am.integration.tests.publisher.APIM519CreateAnAPIThroughTheRestAPIWithoutLoggingInTestCase"/>
             <class name="org.wso2.am.integration.tests.publisher.APIM520UpdateAnAPIThroughThePublisherRestAPITestCase"/>
             <class name="org.wso2.am.integration.tests.publisher.APIM534GetAllTheAPIsCreatedThroughThePublisherRestAPITestCase"/>
@@ -168,7 +175,7 @@
             <class name="org.wso2.am.integration.tests.publisher.APIM638ValidateTheRoleOfAnExistingUserThroughThePublisherRestAPITestCase"/>
             <class name="org.wso2.am.integration.tests.publisher.APIM614AddDocumentationToAnAPIWithDocTypeSampleAndSDKThroughPublisherRestAPITestCase"/>
             <class name="org.wso2.am.integration.tests.publisher.APIResourceWithTemplateTestCase"/>
-            <!--<class name="org.wso2.am.integration.tests.rest.DocAPIParameterTamperingTest"/>-->
+            <class name="org.wso2.am.integration.tests.rest.DocAPIParameterTamperingTest"/>
             <class name="org.wso2.am.integration.tests.other.PublisherAccessControlTestCase"/>
         </classes>
     </test>
@@ -183,14 +190,14 @@
             <class name="org.wso2.am.integration.tests.other.SameVersionAPITestCase"/>
             <class name="org.wso2.am.integration.tests.other.APIM678ApplicationCreationTestCase"/>
             <class name="org.wso2.am.integration.tests.other.APIM714GetAllDocumentationTestCase"/>
-            <!--<class name="org.wso2.am.integration.tests.other.LoadBalancedEndPointTestCase"/>-->
+            <class name="org.wso2.am.integration.tests.other.LoadBalancedEndPointTestCase"/>
             <class name="org.wso2.am.integration.tests.other.APIM720GetAllEndPointsTestCase"/>
             <class name="org.wso2.am.integration.tests.other.APIMANAGER4373BrokenAPIInStoreTestCase"/>
             <class name="org.wso2.am.integration.tests.other.APIMANAGER3965TestCase"/>
             <class name="org.wso2.am.integration.tests.other.ErrorResponseCheckTestCase"/>
             <class name="org.wso2.am.integration.tests.other.APIMANAGER5326CustomStatusMsgTestCase"/>
             <!--<class name="org.wso2.am.integration.tests.application.ApplicationCallbackURLTestCase"/-->
-            <!--<class name="org.wso2.am.integration.tests.admin.OAuthApplicationOwnerUpdateTestCase"/>-->
+            <class name="org.wso2.am.integration.tests.admin.OAuthApplicationOwnerUpdateTestCase"/>
             <class name="org.wso2.am.integration.tests.application.GrantTypeTokenGenerateTestCase"/>
             <class name="org.wso2.am.integration.tests.api.sdk.SDKGenerationTestCase"/>
             <class name="org.wso2.am.integration.tests.application.CAPIMGT12CallBackURLOverwriteTestCase"/>
@@ -199,6 +206,12 @@
             <!--disable test case since it need to configure DAS -->
             <!--<class name="org.wso2.am.integration.tests.stats.APIMANAGER4731StoreStatisticsWhenTokenEncryptedTestCase"/>-->
             <!--<class name="org.wso2.am.integration.tests.other.APIMANAGER5327KeyGenerationWithPGSQLTestCase"/>-->
+        </classes>
+    </test>
+
+    <test name="apim-integration-tests-graphql" preserve-order="true" parallel="false" group-by-instances="true">
+        <classes>
+            <class name="org.wso2.am.integration.tests.graphql.GraphqlTestCase"/>
         </classes>
     </test>
 
@@ -218,7 +231,7 @@
             <class name="org.wso2.am.integration.tests.restapi.GIT_1638_UrlEncodedApiNameTestCase"/>
             <class name="org.wso2.am.integration.tests.restapi.testcases.ApplicationScopeValidationTestCase"/>
             <class name="org.wso2.am.integration.tests.restapi.testcases.ApplicationWithCustomAttributesTestCase"/>
-            <!--<class name="org.wso2.am.integration.tests.restapi.ContentSearchTestCase"/>-->
+            <class name="org.wso2.am.integration.tests.restapi.ContentSearchTestCase"/>
         </classes>
     </test>
     <test name="apim-mediation-tests" preserve-order="true" parallel="false" group-by-instances="true">
@@ -236,7 +249,7 @@
     <test name="apim-integration-tests-without-restarts" preserve-order="true" parallel="false" group-by-instances="true">
         <classes>
             <class name="org.wso2.am.integration.tests.other.AdvancedConfigDeploymentConfig"/>
-            <!--<class name="org.wso2.am.integration.tests.other.NotificationTestCase"/>-->
+            <class name="org.wso2.am.integration.tests.other.NotificationTestCase"/>
             <class name="org.wso2.am.integration.tests.json.ESBJAVA3380TestCase"/>
             <!--THis test will be enabled once the stats event streams are finalized  -->
             <!-- <class name="org.wso2.am.integration.tests.stats.APIInvocationStatPublisherTestCase"/>-->
@@ -266,12 +279,18 @@
         </classes>
     </test>
 
-    <!--<test name="apim-integration-tests-application-sharing" preserve-order="true" parallel="false" group-by-instances="true">
+    <test name="apim-integration-tests-application-sharing" preserve-order="true" parallel="false" group-by-instances="true">
         <classes>
             <class name="org.wso2.am.integration.tests.application.groupSharing.ApplicationSharingConfig"/>
             <class name="org.wso2.am.integration.tests.application.groupSharing.ApplicationSharingTestCase"/>
         </classes>
-    </test>-->
+    </test>
+
+    <test name="apim-JWT-integration-tests" preserve-order="true" parallel="false" group-by-instances="true">
+        <classes>
+            <class name="org.wso2.am.integration.tests.jwt.JWTTestCase"/>
+        </classes>
+    </test>
 
     <test name="apim-integration-tests-endpoint-security" preserve-order="true" parallel="false" group-by-instances="true">
         <classes>
