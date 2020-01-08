@@ -73,14 +73,9 @@
         #else
         #if($isEndpointOAuth)
 
-        <!--TODO - Add the required properties and add the expressions and/or values -->
-        <!-- TODO - See if scope="axis2" is needed for any of the properties -->
-        <!-- TODO - See if the id property needs an expression or a value -->
-<property name="id" />
 <property name="tokenApiUrl" value="$util.escapeXml($endpoints.get("url"))" />
 <property name="apiKey" expression="get-property('axis2', 'apiKey')" />
 <property name="apiSecret" expression="get-property('axis2', 'apiSecret')" />
-        <!-- TODO - Add the username and password properties when adding support for the password grant type. -->
 <property name="grantType" expression="get-property('axis2', 'grantType')" />
 <property name="tokenRefreshInterval" expression="get-property('axis2', 'tokenRefreshInterval')" />
 
