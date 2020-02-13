@@ -73,6 +73,7 @@
         #else
         #if($isEndpointOAuth)
 
+<property xmlns="http://ws.apache.org/ns/synapse" name="httpMethod" value="$util.escapeXml($httpMethod)" type="STRING"/>
 <property xmlns="http://ws.apache.org/ns/synapse" name="tokenUrl" value="$util.escapeXml($tokenUrl)" type="STRING"/>
 <property xmlns="http://ws.apache.org/ns/synapse" name="apiKey" value="$util.escapeXml($apiKey)" type="STRING"/>
 <property xmlns="http://ws.apache.org/ns/synapse" name="apiSecret" value="$util.escapeXml($apiSecret)" type="STRING"/>
