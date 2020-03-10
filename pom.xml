@@ -50,6 +50,7 @@
         <module>modules/p2-profile</module>
         <module>modules/oauth2-grant-types</module>
         <module>modules/authenticators</module>
+        <module>modules/callhome</module>
         <module>modules/distribution</module>
         <module>modules/integration</module>
     </modules>
@@ -1206,10 +1207,10 @@
     <properties>
 
         <project.scm.id>scm-server</project.scm.id>
-        <carbon.analytics.common.version>5.2.21</carbon.analytics.common.version>
+        <carbon.analytics.common.version>5.2.24</carbon.analytics.common.version>
 
         <!-- APIM Component Version -->
-        <carbon.apimgt.version>6.6.109</carbon.apimgt.version>
+        <carbon.apimgt.version>6.6.128</carbon.apimgt.version>
         <carbon.apimgt.imp.pkg.version>[6.5.0, 7.0.0)</carbon.apimgt.imp.pkg.version>
 
         <!-- Carbon Registry -->
@@ -1221,42 +1222,42 @@
         <carbon.governance.version>4.8.14</carbon.governance.version>
 
         <!--carbon versions-->
-        <carbon.kernel.version>4.6.0-beta2</carbon.kernel.version>
+        <carbon.kernel.version>4.6.0</carbon.kernel.version>
         <apimserver.version>3.1.0-SNAPSHOT</apimserver.version>
         <ws.feature.version>1.6.1</ws.feature.version>
 
-	    <cipher.tool.version>1.1.7</cipher.tool.version>
+	    <cipher.tool.version>1.1.9</cipher.tool.version>
 
-        <carbon.commons.version>4.7.23</carbon.commons.version>
+        <carbon.commons.version>4.7.24</carbon.commons.version>
         <carbon.kernel.imp.pkg.version>[4.5.0, 5.0.0)</carbon.kernel.imp.pkg.version>
 
         <!-- carbon mediation -->
         <carbon.mediation.version>4.7.34</carbon.mediation.version>
 
         <!-- carbon identity -->
-        <carbon.identity.version>5.16.102</carbon.identity.version>
-        <carbon.identity.governance.version>1.3.53</carbon.identity.governance.version>
-        <carbon.identity.event.handler.account.lock.version>1.3.9</carbon.identity.event.handler.account.lock.version>
-        <carbon.identity.event.handler.notification.version>1.2.22</carbon.identity.event.handler.notification.version>
-        <carbon.identity-inbound-auth-oauth.version>6.2.134</carbon.identity-inbound-auth-oauth.version>
-        <carbon.identity-data-publisher-oauth.version>1.2.11</carbon.identity-data-publisher-oauth.version>
-        <carbon.identity-user-ws.version>5.3.6</carbon.identity-user-ws.version>
-        <carbon.identity-inbound-auth-openid.version>5.4.6</carbon.identity-inbound-auth-openid.version>
-        <carbon.identity-local-auth-basicauth.version>6.2.8</carbon.identity-local-auth-basicauth.version>
+        <carbon.identity.version>5.17.5</carbon.identity.version>
+        <carbon.identity.governance.version>1.4.1</carbon.identity.governance.version>
+        <carbon.identity.event.handler.account.lock.version>1.4.0</carbon.identity.event.handler.account.lock.version>
+        <carbon.identity.event.handler.notification.version>1.3.0</carbon.identity.event.handler.notification.version>
+        <carbon.identity-inbound-auth-oauth.version>6.4.2</carbon.identity-inbound-auth-oauth.version>
+        <carbon.identity-data-publisher-oauth.version>1.3.0</carbon.identity-data-publisher-oauth.version>
+        <carbon.identity-user-ws.version>5.4.0</carbon.identity-user-ws.version>
+        <carbon.identity-inbound-auth-openid.version>5.5.0</carbon.identity-inbound-auth-openid.version>
+        <carbon.identity-local-auth-basicauth.version>6.3.0</carbon.identity-local-auth-basicauth.version>
         <carbon.identity-outbound-auth-samlsso.version>5.3.6</carbon.identity-outbound-auth-samlsso.version>
-        <carbon.identity-metadata-saml2.version>1.3.6</carbon.identity-metadata-saml2.version>
+        <carbon.identity-metadata-saml2.version>1.4.0</carbon.identity-metadata-saml2.version>
         <carbon.identity-data-publisher-application-authentication.version>5.3.10</carbon.identity-data-publisher-application-authentication.version>
         <carbon.extension.identity.oauth2.grantType.jwt.version>1.0.26</carbon.extension.identity.oauth2.grantType.jwt.version>
-        <carbon.identity.carbon.auth.saml2.version>5.4.9</carbon.identity.carbon.auth.saml2.version>
-        <carbon.identity.auth.version>1.3.24</carbon.identity.auth.version>
-        <identity.apps.version>1.0.52</identity.apps.version>
+        <carbon.identity.carbon.auth.saml2.version>5.5.0</carbon.identity.carbon.auth.saml2.version>
+        <carbon.identity.auth.version>1.4.0</carbon.identity.auth.version>
+        <identity.apps.version>1.0.72</identity.apps.version>
 
         <!--SAML Common Utils Version-->
         <saml.common.util.version>1.0.4</saml.common.util.version>
         <saml.common.util.version.range>[1.0.0,2.0.0)</saml.common.util.version.range>
 
         <!-- carbon deployment -->
-        <carbon.deployment.version>4.9.17</carbon.deployment.version>
+        <carbon.deployment.version>4.10.1</carbon.deployment.version>
 
         <!-- carbon analytics -->
         <carbon.analytics.version>1.4.5</carbon.analytics.version>
@@ -1324,7 +1325,7 @@
         <org.apache.tomcat>7.0.96</org.apache.tomcat>
         <org.codehaus.jackson.version>1.9.13</org.codehaus.jackson.version>
         <carbon.rest.api.version>4.2.2</carbon.rest.api.version>
-        <rampart.wso2.version>1.6.1-wso2v40</rampart.wso2.version>
+        <rampart.wso2.version>1.6.1-wso2v43</rampart.wso2.version>
         <slf4j.api.version>1.7.28</slf4j.api.version>
         <org.slf4j.version>1.7.28</org.slf4j.version>
         <google.code.gson.version>2.8.5</google.code.gson.version>
@@ -1373,7 +1374,7 @@
         <com.googlecode.json.version>1.1.1</com.googlecode.json.version>
 
         <!-- Forget-me tool -->
-        <forgetme.tool.version>1.2.1</forgetme.tool.version>
+        <forgetme.tool.version>1.3.0</forgetme.tool.version>
         <!--Concent Management dependencies-->
         <carbon.consent.mgt.version>2.2.8</carbon.consent.mgt.version>
         <carbon.database.utils.version>2.0.11</carbon.database.utils.version>
@@ -1390,10 +1391,16 @@
         <config.mapper.version>1.0.2</config.mapper.version>
 
         <!-- Authenticator Properties -->
-        <identity.outbound.auth.oidc.version>5.4.2</identity.outbound.auth.oidc.version>
+        <identity.outbound.auth.oidc.version>5.5.0</identity.outbound.auth.oidc.version>
         <swagger-parser-version>2.0.14</swagger-parser-version>
         <swagger.inflector.oas3.version>2.0.5</swagger.inflector.oas3.version>
         <nimbus.jwt.version>7.3.0.wso2v1</nimbus.jwt.version>
+
+        <!-- CallHome version -->
+        <callhome.version>4.5.x_1.0.4</callhome.version>
+
+        <!-- WSDL4J dependencies -->
+        <wsdl4j.version>1.6.3.wso2v3</wsdl4j.version>
     </properties>
 
 </project>
