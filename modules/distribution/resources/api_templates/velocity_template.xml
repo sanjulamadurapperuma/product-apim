@@ -79,6 +79,7 @@
 <property xmlns="http://ws.apache.org/ns/synapse" name="apiSecret" value="$util.escapeXml($apiSecret)" type="STRING"/>
 <property xmlns="http://ws.apache.org/ns/synapse" name="grantType" value="$util.escapeXml($grantType)" type="STRING"/>
 <property xmlns="http://ws.apache.org/ns/synapse" name="usernamePassword" value="$util.escapeXml($base64unpw)" type="STRING"/>
+<property xmlns="http://ws.apache.org/ns/synapse" name="customParameters" value="$util.escapeXml($customParameters)" type="STRING"/>
 
 
 <class name="org.wso2.carbon.apimgt.gateway.mediators.oauth.OAuthMediator" />
