@@ -72,6 +72,18 @@
 </enrich>
 
         #else
+        #if($endpointsecurity.type == "oauth" || $endpointsecurity.type == "OAUTH")
+
+<property xmlns="http://ws.apache.org/ns/synapse" name="tokenUrl" value="$util.escapeXml($endpointsecurity.tokenUrl)" type="STRING"/>
+<property xmlns="http://ws.apache.org/ns/synapse" name="apiKey" value="$util.escapeXml($endpointsecurity.apiKey)" type="STRING"/>
+<property xmlns="http://ws.apache.org/ns/synapse" name="apiSecret" value="$util.escapeXml($endpointsecurity.apiSecret)" type="STRING"/>
+<property xmlns="http://ws.apache.org/ns/synapse" name="grantType" value="$util.escapeXml($endpointsecurity.grantType)" type="STRING"/>
+<property xmlns="http://ws.apache.org/ns/synapse" name="usernamePassword" value="$util.escapeXml($endpointsecurity.base64EncodedPassword)" type="STRING"/>
+<property xmlns="http://ws.apache.org/ns/synapse" name="customParameters" value="$util.escapeXml($endpointsecurity.customParameters)" type="STRING"/>
+
+<class name="org.wso2.carbon.apimgt.gateway.mediators.oauth.OAuthMediator" />
+
+        #else
 <property xmlns="http://ws.apache.org/ns/synapse" name="Authorization" expression="fn:concat('Basic ', '$endpointsecurity.base64EncodedPassword')" scope="transport"/>
         #end
         #end
