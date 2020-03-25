@@ -1379,6 +1379,10 @@
                             <deleteOldProfileFiles>true</deleteOldProfileFiles>
                             <features>
                                 <feature>
+                                    <id>org.jaggeryjs.server.feature.group</id>
+                                    <version>${org.jaggery.version}</version>
+                                </feature>
+                                <feature>
                                     <id>org.wso2.carbon.tenant.mgt.common.feature.group</id>
                                     <version>${carbon.commons.version}</version>
                                 </feature>
@@ -2905,6 +2909,10 @@
                                 <feature>
                                     <id>org.wso2.carbon.identity.idp.metadata.saml2.server.feature.group</id>
                                     <version>${carbon.identity-metadata-saml2.version}</version>
+                                </feature>
+                                <feature>
+                                    <id>org.wso2.carbon.identity.user.server.feature.group</id>
+                                    <version>${carbon.identity.governance.version}</version>
                                 </feature>
                                 <feature>
                                     <id>org.wso2.carbon.core.common.feature.group</id>
