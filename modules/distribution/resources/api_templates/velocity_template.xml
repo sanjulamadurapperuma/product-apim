@@ -77,9 +77,11 @@
 <property xmlns="http://ws.apache.org/ns/synapse" name="apiKey" value="$util.escapeXml($endpointsecurity.apiKey)" type="STRING"/>
 <property xmlns="http://ws.apache.org/ns/synapse" name="apiSecret" value="$util.escapeXml($endpointsecurity.apiSecret)" type="STRING"/>
 <property xmlns="http://ws.apache.org/ns/synapse" name="grantType" value="$util.escapeXml($endpointsecurity.grantType)" type="STRING"/>
-<property xmlns="http://ws.apache.org/ns/synapse" name="usernamePassword" value="$util.escapeXml($endpointsecurity.base64EncodedPassword)" type="STRING"/>
 <property xmlns="http://ws.apache.org/ns/synapse" name="customParameters" value="$util.escapeXml($endpointsecurity.customParameters)" type="STRING"/>
 
+        #if($endpointsecurity.grantType == "password" || $endpointsecurity.grantType == "PASSWORD")
+<property xmlns="http://ws.apache.org/ns/synapse" name="usernamePassword" value="$util.escapeXml($endpointsecurity.base64EncodedPassword)" type="STRING"/>
+        #end
 <class name="org.wso2.carbon.apimgt.gateway.mediators.oauth.OAuthMediator" />
 
         #else
