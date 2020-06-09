@@ -20,7 +20,7 @@ under the License.
     <parent>
         <artifactId>org.wso2.carbon.am.integration.test</artifactId>
         <groupId>org.wso2.am</groupId>
-        <version>3.1.1-SNAPSHOT</version>
+        <version>3.2.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -122,6 +122,7 @@ under the License.
                                 <sec.verifier.dir>${basedir}/target/security-verifier/</sec.verifier.dir>
                                 <instr.file>${basedir}/src/test/resources/instrumentation.txt</instr.file>
                                 <filters.file>${basedir}/src/test/resources/filters.txt</filters.file>
+                                <apim.server.version>${apimserver.version}</apim.server.version>
                             </systemProperties>
                             <skipTests>${skipIntegrationTests}</skipTests>
                             <environmentVariables>
@@ -144,6 +145,9 @@ under the License.
                             <classpathDependencyExcludes>
                                 <classpathDependencyExclude>org.ops4j.pax.logging</classpathDependencyExclude>
                             </classpathDependencyExcludes>
+                            <systemPropertyVariables>
+                                <okHttpLogs>false</okHttpLogs>
+                            </systemPropertyVariables>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -232,12 +236,16 @@ under the License.
                                 </property>
                                 <sec.verifier.dir>${basedir}/target/security-verifier/</sec.verifier.dir>
                                 <instr.file>${basedir}/src/test/resources/instrumentation.txt</instr.file>
-                                <filters.file>${basedir}/src/test/resources/filters.txt</filters.file>
+                                <filters.file>${basedir}/src/test/resources/filters.txt</filters.file>                                <apim.server.version>${apimserver.version}</apim.server.version>
+                                <apim.server.version>${apimserver.version}</apim.server.version>
                             </systemProperties>
                             <workingDirectory>${basedir}/target</workingDirectory>
                             <classpathDependencyExcludes>
                                 <classpathDependencyExclude>org.ops4j.pax.logging</classpathDependencyExclude>
                             </classpathDependencyExcludes>
+                            <systemPropertyVariables>
+                                <okHttpLogs>false</okHttpLogs>
+                            </systemPropertyVariables>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -327,6 +335,9 @@ under the License.
                                 <instr.file>${basedir}/src/test/resources/instrumentation.txt</instr.file>
                                 <filters.file>${basedir}/src/test/resources/filters.txt</filters.file>
                             </systemProperties>
+                            <systemPropertyVariables>
+                                <okHttpLogs>false</okHttpLogs>
+                            </systemPropertyVariables>
                             <workingDirectory>${basedir}/target</workingDirectory>
                             <classpathDependencyExcludes>
                                 <classpathDependencyExclude>org.ops4j.pax.logging</classpathDependencyExclude>
@@ -392,6 +403,19 @@ under the License.
                                     <includes>**/*.mar,**/axis2_client.xml</includes>
                                 </artifactItem>
                             </artifactItems>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-thirdparty-km-jar</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.basedir}/src/test/resources/artifacts/AM/configFiles/idpjwt
+                            </outputDirectory>
+                            <includeTypes>jar</includeTypes>
+                            <includeArtifactIds>org.wso2.am.thirdparty.km</includeArtifactIds>
                         </configuration>
                     </execution>
                 </executions>
@@ -560,6 +584,16 @@ under the License.
             </exclusions>
         </dependency>
         <dependency>
+            <groupId>org.wso2.am</groupId>
+            <artifactId>org.wso2.am.thirdparty.km</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.wso2.carbon.apimgt</groupId>
+                    <artifactId>org.wso2.carbon.apimgt.impl</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
             <groupId>org.wso2.carbon.automationutils</groupId>
             <artifactId>org.wso2.carbon.integration.common.utils</artifactId>
         </dependency>
@@ -694,16 +728,15 @@ under the License.
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.wso2.am</groupId>
             <artifactId>org.wso2.am.integration.clients.publisher.api</artifactId>
-            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>org.wso2.am</groupId>
             <artifactId>org.wso2.am.integration.clients.store.api</artifactId>
-            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
