@@ -284,4 +284,3 @@ $out_sequences.get("$resource.getUriTemplate()").get($uri)
 </handler>
 </handlers>
         </api>
-        <!--$endpoint_security-->
